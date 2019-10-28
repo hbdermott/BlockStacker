@@ -19,7 +19,7 @@ public class Spawner : MonoBehaviour
     {
         GameObject obj = Instantiate(cubePrefab) as GameObject;
         var objRenderer = obj.GetComponent<Renderer>();
-        objRenderer.material.color = Random.ColorHSV();
+        objRenderer.material.color = Random.ColorHSV(0, 1, 1, 1, 1, 1);
         obj.transform.position = new Vector3(Random.Range(2, 8), 20, 10);
     }
 
