@@ -12,7 +12,7 @@ public class Point : MonoBehaviour
     private TMPro.TextMeshPro playerTM;
 
     private float cubeHeight = 0;
-    private int points = 0;
+    public int points = 0;
  
 
     void Start()
