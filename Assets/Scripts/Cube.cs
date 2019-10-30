@@ -6,9 +6,8 @@ using UnityEngine;
 public class Cube : MonoBehaviour
 {
     private Rigidbody rb;
-    private ParticleSystem ps;
-    public float height = 0;
-
+    // public float height = 0;
+    public bool collided = false;
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -16,12 +15,13 @@ public class Cube : MonoBehaviour
 
     void OnCollisionEnter(Collision col)
     {
-        height = transform.position.y;
+        //height = transform.position.y;
+        collided = true;
     }
 
     void Update()
     {
-        if (transform.position.y < -3)
+        if (Camera.main.ViewportToWorldPoint(transform.position).y < -5)
             Destroy(gameObject);
     }
 }

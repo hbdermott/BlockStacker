@@ -27,9 +27,16 @@ public class Player : MonoBehaviour
         Vector3 pos = Camera.main.WorldToViewportPoint(transform.position);
         pos.x = Mathf.Clamp01(pos.x);
         if (pos.x == 0)
-            rb.AddForce(new Vector3(-speed, 0, 0));
+        {
+            rb.velocity = new Vector3(0, 0, 0);
+            rb.AddForce(new Vector3(speed * 2, 0, 0));
+        }
+
         if (pos.x == 1)
-            rb.AddForce(new Vector3(-speed, 0, 0));
-        transform.position = Camera.main.ViewportToWorldPoint(pos);
+        {
+            rb.velocity = new Vector3(0, 0, 0);
+            rb.AddForce(new Vector3(-speed * 2, 0, 0));
+        }
+        //transform.position = Camera.main.ViewportToWorldPoint(pos);
     }
 }

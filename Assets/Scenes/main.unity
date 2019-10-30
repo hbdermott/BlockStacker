@@ -151,7 +151,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cubePrefab: {fileID: 3390305219222954570, guid: 464813840ab7f2043a82a8398e45bf09,
     type: 3}
-  points: 0
+  height: 0
 --- !u!4 &578904233
 Transform:
   m_ObjectHideFlags: 0
@@ -397,7 +397,7 @@ GameObject:
   - component: {fileID: 2132344170}
   m_Layer: 0
   m_Name: Cube Spawner
-  m_TagString: Untagged
+  m_TagString: Spawner
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -416,6 +416,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cubePrefab: {fileID: 3390305219222954570, guid: 464813840ab7f2043a82a8398e45bf09,
     type: 3}
+  respawnTime: 4
 --- !u!4 &2132344171
 Transform:
   m_ObjectHideFlags: 0
@@ -511,6 +512,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_ReceiveShadows
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6973949831095529490, guid: 8356f3b0245a6f848ad0eadb5f6dd91a,
+        type: 3}
+      propertyPath: m_Constraints
+      value: 124
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8356f3b0245a6f848ad0eadb5f6dd91a, type: 3}
