@@ -23,6 +23,13 @@ public class Spawner : MonoBehaviour
         var objRenderer = obj.GetComponent<Renderer>();
         objRenderer.material.color = Random.ColorHSV(0, 1, 1, 1, 1, 1);
         obj.transform.position = pos;
+        if (Random.Range(0, 10) == 0)
+        {
+            obj.GetComponent<Cube>().sticky = true;
+            objRenderer.material.color = Color.green;
+        }
+
+
     }
 
     IEnumerator Spawn()

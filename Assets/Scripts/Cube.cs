@@ -8,6 +8,7 @@ public class Cube : MonoBehaviour
     private Rigidbody rb;
     // public float height = 0;
     public bool collided = false;
+    public bool sticky = false;
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -15,7 +16,12 @@ public class Cube : MonoBehaviour
 
     void OnCollisionEnter(Collision col)
     {
-        //height = transform.position.y;
+        if (sticky)
+        {
+            FixedJoint joint = gameObject.AddComponent<FixedJoint>();
+            joint.connectedBody = col.rigidbody;
+        }
+
         collided = true;
     }
 
