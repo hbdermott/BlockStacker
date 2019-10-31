@@ -9,9 +9,14 @@ public class Cube : MonoBehaviour
     // public float height = 0;
     public bool collided = false;
     public bool sticky = false;
+    public bool heavy = false;
+
+    private GameObject gameController;
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        gameController = GameObject.FindGameObjectWithTag("GameController");
     }
 
     void OnCollisionEnter(Collision col)
@@ -19,15 +24,20 @@ public class Cube : MonoBehaviour
         if (sticky)
         {
             FixedJoint joint = gameObject.AddComponent<FixedJoint>();
-            joint.connectedBody = col.rigidbody;
+            joint.connectedBody = col.rigidbody; 
         }
 
         collided = true;
     }
 
+
+
     void Update()
     {
         if (Camera.main.ViewportToWorldPoint(transform.position).y < -5)
+        {
             Destroy(gameObject);
+            gameController.GetComponent<Scene>().droppedCubes++;
+        }
     }
 }
