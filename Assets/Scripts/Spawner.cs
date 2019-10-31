@@ -25,25 +25,21 @@ public class Spawner : MonoBehaviour
     private void SpawnObject()
     {
         Vector3 pos = Camera.main.ViewportToWorldPoint(new Vector3(Random.Range(0.1f, 0.9f), 1.1f, 10 - Camera.main.transform.position.z));
-        if(Random.Range(0,20) == 0)
-        {
-            GameObject bomb = Instantiate(bombPrefab) as GameObject;
-            bomb.transform.position = pos;
-            return;
-        }
-
+        int random = Random.Range(0, 20);
         GameObject obj = Instantiate(cubePrefab) as GameObject;
-        var objRenderer = obj.GetComponent<Renderer>();
-        objRenderer.material.color = Random.ColorHSV(0, 1, 1, 1, 1, 1);
-        obj.transform.position = pos;
-        if (Random.Range(0, 10) == 0)
+        if(random == 0)
+            obj = Instantiate(bombPrefab) as GameObject;
+        else if(random <= 2)
         {
             obj.GetComponent<Cube>().sticky = true;
             obj.GetComponent<MeshRenderer>().material = stickyMat;
-            objRenderer.material.color = Color.white;
         }
-
-   
+        else
+        {
+            var objRenderer = obj.GetComponent<Renderer>();
+            objRenderer.material.color = Random.ColorHSV(0, 1, 1, 1, 1, 1);
+        }
+        obj.transform.position = pos;
     }
 
     IEnumerator Spawn()

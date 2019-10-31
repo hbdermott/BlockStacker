@@ -6,7 +6,6 @@ using UnityEngine;
 public class Cube : MonoBehaviour
 {
     private Rigidbody rb;
-    // public float height = 0;
     public bool collided = false;
     public bool sticky = false;
     public bool heavy = false;
@@ -26,7 +25,6 @@ public class Cube : MonoBehaviour
             FixedJoint joint = gameObject.AddComponent<FixedJoint>();
             joint.connectedBody = col.rigidbody; 
         }
-
         collided = true;
     }
 
