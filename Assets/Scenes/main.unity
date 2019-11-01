@@ -552,12 +552,12 @@ PrefabInstance:
     - target: {fileID: 7704855428356220195, guid: 8356f3b0245a6f848ad0eadb5f6dd91a,
         type: 3}
       propertyPath: m_Drag
-      value: 2
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 7704855428356220188, guid: 8356f3b0245a6f848ad0eadb5f6dd91a,
         type: 3}
       propertyPath: speed
-      value: 0.75
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 7704855429437834487, guid: 8356f3b0245a6f848ad0eadb5f6dd91a,
         type: 3}
