@@ -25,7 +25,7 @@ public class AutoCam : MonoBehaviour
             transform.position += new Vector3(0, 0, 0.01f);
         if(Camera.main.WorldToViewportPoint(player.transform.position).y > 0.1)
             transform.position += new Vector3(0, 0.001f, 0);
-        else if(Camera.main.WorldToViewportPoint(player.transform.position).y < 0.1)
+        else if(Camera.main.WorldToViewportPoint(player.transform.position).y < 0.8)
             transform.position -= new Vector3(0, 0.001f, 0);
     }
 }

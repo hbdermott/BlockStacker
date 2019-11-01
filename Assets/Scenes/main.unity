@@ -149,7 +149,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84f7f44caae89d1488c66ddb733d2750, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cubePrefab: {fileID: 3390305219222954570, guid: 464813840ab7f2043a82a8398e45bf09,
+  cubePrefab: {fileID: 2069357537720351398, guid: 464813840ab7f2043a82a8398e45bf09,
     type: 3}
   height: 0
 --- !u!4 &578904233
@@ -195,7 +195,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ebcd65ac584a29c4a9112bdf993e6501, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  droppedCubes: 0
+  cubesDestroyed: 0
+  numAllowed: 3
 --- !u!4 &944025868
 Transform:
   m_ObjectHideFlags: 0
@@ -248,7 +249,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.2947668, g: 0.29832682, b: 0.3018868, a: 0.22352941}
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -262,7 +263,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.3
-  far clip plane: 1000
+  far clip plane: 50
   field of view: 40
   orthographic: 0
   orthographic size: 5
@@ -275,7 +276,7 @@ Camera:
   m_TargetDisplay: 0
   m_TargetEye: 3
   m_HDR: 1
-  m_AllowMSAA: 1
+  m_AllowMSAA: 0
   m_AllowDynamicResolution: 0
   m_ForceIntoRT: 0
   m_OcclusionCulling: 1
@@ -349,7 +350,7 @@ MonoBehaviour:
       colorBlindnessType: 0
       colorBlindnessStrength: 1
   m_Resources: {fileID: 11400000, guid: d82512f9c8e5d4a4d938b575d47f88d4, type: 2}
-  m_ShowToolkit: 1
+  m_ShowToolkit: 0
   m_ShowCustomSorter: 1
   breakBeforeColorGrading: 0
   m_BeforeTransparentBundles: []
@@ -376,7 +377,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1813448900}
-  - component: {fileID: 1813448899}
   - component: {fileID: 1813448898}
   m_Layer: 8
   m_Name: Post-process Volume
@@ -402,19 +402,6 @@ MonoBehaviour:
   blendDistance: 0
   weight: 1
   priority: 0
---- !u!65 &1813448899
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1813448897}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!4 &1813448900
 Transform:
   m_ObjectHideFlags: 0
@@ -458,9 +445,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 350db78250735c84c98bf210ef1605a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cubePrefab: {fileID: 3390305219222954570, guid: 464813840ab7f2043a82a8398e45bf09,
+  cubePrefab: {fileID: 2069357537720351398, guid: 464813840ab7f2043a82a8398e45bf09,
     type: 3}
-  bombPrefab: {fileID: 1686219520072813584, guid: 103da56846333b646a1d4a2a41057b70,
+  bombPrefab: {fileID: 7218609570278353446, guid: 103da56846333b646a1d4a2a41057b70,
     type: 3}
   stickyMat: {fileID: 2100000, guid: d85b75d91f5b4b047856c5b2d712410f, type: 2}
   heavyMat: {fileID: 2100000, guid: edf6e51c34de29f489a4295327ed4e61, type: 2}

@@ -68,7 +68,11 @@ public class Cube : MonoBehaviour
         }
         DestroyCube();
         foreach(GameObject piece in cubes)
-            Destroy(piece, 3);
+        {
+            StartCoroutine(fadeInAndOut(piece, false, 5.0f));
+            Destroy(piece, 6.0f);
+        }
+            
 
     }
 
@@ -79,6 +83,7 @@ public class Cube : MonoBehaviour
         piece.transform.localScale = new Vector3(cubeSize, cubeSize, cubeSize);
         piece.AddComponent<Rigidbody>();
         piece.GetComponent<Rigidbody>().mass = rb.mass / cubesInRow;
+       // piece.AddComponent<CollisionIgnore>();
         piece.GetComponent<MeshRenderer>().material = mesh.material;
         piece.GetComponent<Renderer>().material.color = ren.material.color;
         cubes[counter] = piece;
@@ -96,4 +101,48 @@ public class Cube : MonoBehaviour
         if (Camera.main.ViewportToWorldPoint(transform.position).y < -5)
             DestroyCube();
     }
+
+    
+    IEnumerator fadeInAndOut(GameObject objectToFade, bool fadeIn, float duration)
+    {
+        float counter = 0f;
+        float a, b;
+        if (fadeIn)
+        {
+            a = 0;
+            b = 1;
+        }
+        else
+        {
+            a = 1;
+            b = 0;
+        }
+
+        Color currentColor = Color.clear;
+        MeshRenderer tempRenderer = objectToFade.GetComponent<MeshRenderer>();
+
+       if (tempRenderer != null)
+        {
+            currentColor = tempRenderer.material.color;
+            tempRenderer.material.SetFloat("_Mode", 2);
+            tempRenderer.material.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.SrcAlpha);
+            tempRenderer.material.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
+            tempRenderer.material.SetInt("_ZWrite", 0);
+            tempRenderer.material.DisableKeyword("_ALPHATEST_ON");
+            tempRenderer.material.EnableKeyword("_ALPHABLEND_ON");
+            tempRenderer.material.DisableKeyword("_ALPHAPREMULTIPLY_ON");
+            tempRenderer.material.renderQueue = 3000;
+        }
+        else
+            yield break;
+
+        while (counter < duration)
+        {
+            counter += Time.deltaTime;
+            float alpha = Mathf.Lerp(a, b, counter / duration);
+            tempRenderer.material.color = new Color(currentColor.r, currentColor.g, currentColor.b, alpha);
+            yield return null;
+        }
+    }
+
 }
