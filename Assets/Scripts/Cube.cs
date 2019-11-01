@@ -40,7 +40,7 @@ public class Cube : MonoBehaviour
 
     void OnCollisionEnter(Collision col)
     {
-        if (sticky)
+        if (sticky || col.gameObject.GetComponent<Renderer>().material.color == ren.material.color)
         {
             FixedJoint joint = gameObject.AddComponent<FixedJoint>();
             joint.connectedBody = col.rigidbody; 
@@ -83,7 +83,7 @@ public class Cube : MonoBehaviour
         piece.transform.localScale = new Vector3(cubeSize, cubeSize, cubeSize);
         piece.AddComponent<Rigidbody>();
         piece.GetComponent<Rigidbody>().mass = rb.mass / cubesInRow;
-       // piece.AddComponent<CollisionIgnore>();
+        piece.AddComponent<CollisionIgnore>();
         piece.GetComponent<MeshRenderer>().material = mesh.material;
         piece.GetComponent<Renderer>().material.color = ren.material.color;
         cubes[counter] = piece;
