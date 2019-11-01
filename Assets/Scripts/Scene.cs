@@ -5,21 +5,19 @@ using UnityEngine.SceneManagement;
 
 public class Scene : MonoBehaviour
 {
-    public int droppedCubes = 0;
+    public int cubesDestroyed = 0;
 
-    private int dropsAllowed = 3;
+    public int  numAllowed = 3;
     // Start is called before the first frame update
     void Start()
     {
         
-    }
+    }       
 
     // Update is called once per frame
     void Update()
     {
-        if(droppedCubes >= dropsAllowed)
-        {
+        if(cubesDestroyed >= numAllowed)
             SceneManager.LoadScene("main");
-        }
     }
 }

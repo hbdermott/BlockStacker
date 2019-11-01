@@ -35,10 +35,7 @@ public class Spawner : MonoBehaviour
             obj.GetComponent<MeshRenderer>().material = stickyMat;
         }
         else
-        {
-            var objRenderer = obj.GetComponent<Renderer>();
-            objRenderer.material.color = Random.ColorHSV(0, 1, 1, 1, 1, 1);
-        }
+            obj.GetComponent<Renderer>().material.color = Random.ColorHSV(0, 1, 1, 1, 1, 1);
         obj.transform.position = pos;
     }
 
