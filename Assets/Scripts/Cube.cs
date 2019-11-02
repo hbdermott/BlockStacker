@@ -24,6 +24,7 @@ public class Cube : MonoBehaviour
     private Scene gameController;
     private Rigidbody rb;
     private AudioSource audio;
+    private GameObject player;
     [SerializeField]
     private AudioClip stickAudio;
     private bool played = false;
@@ -37,6 +38,7 @@ public class Cube : MonoBehaviour
         ren = GetComponent<Renderer>();
         mesh = GetComponent<MeshRenderer>();
         audio = GetComponent<AudioSource>();
+        player = GameObject.FindGameObjectWithTag("Player");
         gameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<Scene>();
         cubeSize = (float)ren.bounds.size.x/cubesInRow;
         cubesPivotDistance = (float)cubeSize*cubesInRow/2;
@@ -59,6 +61,8 @@ public class Cube : MonoBehaviour
         }
         else if (!played)
         {
+            if(col.gameObject != player && col.gameObject.GetComponent<Cube>().sticky)
+                audio.clip = stickAudio;
             audio.Play();
             played = true;
         }
