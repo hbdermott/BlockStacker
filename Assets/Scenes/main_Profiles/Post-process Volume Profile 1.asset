@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8e6292b2c06870d4495f009f912b9600, type: 3}
-  m_Name: Post-process Volume Profile
+  m_Name: Post-process Volume Profile 1
   m_EditorClassIdentifier: 
   settings:
-  - {fileID: 8486699403753201652}
---- !u!114 &8486699403753201652
+  - {fileID: 2304000161800412462}
+--- !u!114 &2304000161800412462
 MonoBehaviour:
   m_ObjectHideFlags: 3
   m_CorrespondingSourceObject: {fileID: 0}
@@ -32,19 +32,19 @@ MonoBehaviour:
     value: 1
   intensity:
     overrideState: 1
-    value: 4
+    value: 2
   threshold:
     overrideState: 1
     value: 0.5
   softKnee:
-    overrideState: 1
+    overrideState: 0
     value: 0.5
   clamp:
     overrideState: 0
     value: 1
   diffusion:
     overrideState: 1
-    value: 5
+    value: 4.5
   anamorphicRatio:
     overrideState: 1
     value: 0

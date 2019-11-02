@@ -8,6 +8,8 @@ TagManager:
   - Point
   - Spawner
   - Filter
+  - Pause
+  - Post
   layers:
   - Default
   - TransparentFX
