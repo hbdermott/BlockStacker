@@ -23,6 +23,11 @@ public class Cube : MonoBehaviour
     private MeshRenderer mesh;
     private Scene gameController;
     private Rigidbody rb;
+    private AudioSource audio;
+    [SerializeField]
+    private AudioClip stickAudio;
+    private bool played = false;
+
 
 
 
@@ -31,6 +36,7 @@ public class Cube : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         ren = GetComponent<Renderer>();
         mesh = GetComponent<MeshRenderer>();
+        audio = GetComponent<AudioSource>();
         gameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<Scene>();
         cubeSize = (float)ren.bounds.size.x/cubesInRow;
         cubesPivotDistance = (float)cubeSize*cubesInRow/2;
@@ -43,7 +49,18 @@ public class Cube : MonoBehaviour
         if (sticky || col.gameObject.GetComponent<Renderer>().material.color == ren.material.color)
         {
             FixedJoint joint = gameObject.AddComponent<FixedJoint>();
-            joint.connectedBody = col.rigidbody; 
+            joint.connectedBody = col.rigidbody;
+            if (!played)
+            {
+                audio.clip = stickAudio;
+                audio.Play();
+                played = true;
+            }
+        }
+        else if (!played)
+        {
+            audio.Play();
+            played = true;
         }
         collided = true;
     }
@@ -83,7 +100,7 @@ public class Cube : MonoBehaviour
         piece.transform.localScale = new Vector3(cubeSize, cubeSize, cubeSize);
         piece.AddComponent<Rigidbody>();
         piece.GetComponent<Rigidbody>().mass = rb.mass / cubesInRow;
-        piece.AddComponent<CollisionIgnore>();
+        //piece.AddComponent<CollisionIgnore>();
         piece.GetComponent<MeshRenderer>().material = mesh.material;
         piece.GetComponent<Renderer>().material.color = ren.material.color;
         cubes[counter] = piece;

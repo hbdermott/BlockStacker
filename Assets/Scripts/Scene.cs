@@ -17,7 +17,13 @@ public class Scene : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(cubesDestroyed >= numAllowed)
-            SceneManager.LoadScene("main");
+        if (cubesDestroyed >= numAllowed)
+            StartGame();
+    }
+
+    public void StartGame()
+    {
+        SceneManager.LoadScene("main");
     }
 }
+
