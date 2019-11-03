@@ -9,6 +9,7 @@ public class Scene : MonoBehaviour
     private GameObject endScreen;
     private GameObject filter;
     private GameObject button;
+    private GameObject next;
     private GameObject post;
     private Player player;
     private bool toggled = false;
@@ -19,7 +20,10 @@ public class Scene : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
         cubesDestroyed = 0;
+        next = GameObject.FindGameObjectWithTag("Next");
+        next.SetActive(true);
         endScreen = GameObject.FindGameObjectWithTag("Finish");
         endScreen.SetActive(false);
         filter = GameObject.FindGameObjectWithTag("Filter");
@@ -41,6 +45,7 @@ public class Scene : MonoBehaviour
             endScreen.SetActive(true);
             filter.SetActive(true);
             button.SetActive(false);
+            next.SetActive(false);
             post.GetComponent<PostProcessVolume>().weight = 0.7f;
             Time.timeScale = 0;
         }

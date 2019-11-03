@@ -20,10 +20,13 @@ public class Spawner : MonoBehaviour
 
     private GameObject nextGO;
     private GameObject nextCube;
+    private GameObject nextBomb;
     
     void Start()
     {
-        nextCube = GameObject.FindGameObjectWithTag("Next");
+        GameObject next = GameObject.FindGameObjectWithTag("Next");
+        nextCube = next.transform.GetChild(0).gameObject;
+        nextBomb = next.transform.GetChild(1).gameObject;
         CreateObject();
         StartCoroutine(Spawn());  
     }
@@ -34,18 +37,29 @@ public class Spawner : MonoBehaviour
         int random = Random.Range(0, 20);
         nextGO = Instantiate(cubePrefab) as GameObject;
         if (random == 0)
+        {
             nextGO = Instantiate(bombPrefab) as GameObject;
+            nextCube.SetActive(false);
+            nextBomb.SetActive(true);
+        }
         else if (random <= 2)
         {
             nextGO.GetComponent<Cube>().sticky = true;
             nextGO.GetComponent<MeshRenderer>().material = stickyMat;
+            nextCube.GetComponent<MeshRenderer>().material = nextGO.GetComponent<MeshRenderer>().material;
+            nextBomb.SetActive(false);
+            nextCube.SetActive(true);
         }
         else
+        {
             nextGO.GetComponent<Renderer>().material.color = GetColor();
+            nextCube.GetComponent<Renderer>().material.color = nextGO.GetComponent<Renderer>().material.color;
+            nextCube.GetComponent<MeshRenderer>().material = nextGO.GetComponent<MeshRenderer>().material;
+            nextBomb.SetActive(false);
+            nextCube.SetActive(true);
+        }
         nextGO.transform.position = pos;
         nextGO.SetActive(false);
-        nextCube.GetComponent<MeshRenderer>().material = nextGO.GetComponent<MeshRenderer>().material;
-        nextCube.GetComponent<Renderer>().material.color = nextGO.GetComponent<Renderer>().material.color;
     }
 
     private void SpawnObject()
