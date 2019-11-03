@@ -27,7 +27,9 @@ public class Cube : MonoBehaviour
     private GameObject player;
     [SerializeField]
     private AudioClip stickAudio;
-    private bool played = false;
+    [SerializeField]
+    private AudioClip collideAudio;
+    private List<int> cubeCol = new List<int>();
 
 
 
@@ -48,24 +50,20 @@ public class Cube : MonoBehaviour
 
     void OnCollisionEnter(Collision col)
     {
-        if (sticky || col.gameObject.GetComponent<Renderer>().material.color == ren.material.color)
+        int id = col.gameObject.GetInstanceID();
+        if (cubeCol.Contains(id))
+            return;
+        cubeCol.Add(id);
+        if ((sticky || col.gameObject.GetComponent<Renderer>().material.color == ren.material.color || (col.gameObject != player && col.gameObject.GetComponent<Cube>().sticky)))
         {
             FixedJoint joint = gameObject.AddComponent<FixedJoint>();
             joint.connectedBody = col.rigidbody;
-            if (!played)
-            {
-                audio.clip = stickAudio;
-                audio.Play();
-                played = true;
-            }
+            audio.clip = stickAudio;
         }
-        else if (!played)
-        {
-            if(col.gameObject != player && col.gameObject.GetComponent<Cube>().sticky)
-                audio.clip = stickAudio;
+        else
+            audio.clip = collideAudio;
+        if(id < GetInstanceID() || col.gameObject == player)
             audio.Play();
-            played = true;
-        }
         collided = true;
     }
     
@@ -90,7 +88,8 @@ public class Cube : MonoBehaviour
         DestroyCube();
         foreach(GameObject piece in cubes)
         {
-            StartCoroutine(fadeInAndOut(piece, false, 5.0f));
+            piece.AddComponent<CollisionIgnore>();
+            StartCoroutine(fadeInAndOut(piece, false, 3.0f));
             Destroy(piece, 6.0f);
         }
             
@@ -104,7 +103,6 @@ public class Cube : MonoBehaviour
         piece.transform.localScale = new Vector3(cubeSize, cubeSize, cubeSize);
         piece.AddComponent<Rigidbody>();
         piece.GetComponent<Rigidbody>().mass = rb.mass / cubesInRow;
-        //piece.AddComponent<CollisionIgnore>();
         piece.GetComponent<MeshRenderer>().material = mesh.material;
         piece.GetComponent<Renderer>().material.color = ren.material.color;
         cubes[counter] = piece;
@@ -155,7 +153,10 @@ public class Cube : MonoBehaviour
             tempRenderer.material.renderQueue = 3000;
         }
         else
+        {
+            Debug.Log(objectToFade);
             yield break;
+        }
 
         while (counter < duration)
         {

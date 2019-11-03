@@ -118,6 +118,7 @@ MonoBehaviour:
   explosionRadius: 8
   explosionUpward: 0.2
   stickAudio: {fileID: 8300000, guid: 04f766cc626c9f24097441ec5a030f66, type: 3}
+  collideAudio: {fileID: 8300000, guid: c10d6957327e95b4a81794cb68ed6be5, type: 3}
 --- !u!65 &2069357537720351399
 BoxCollider:
   m_ObjectHideFlags: 0

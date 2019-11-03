@@ -19,6 +19,7 @@ public class Scene : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        cubesDestroyed = 0;
         endScreen = GameObject.FindGameObjectWithTag("Finish");
         endScreen.SetActive(false);
         filter = GameObject.FindGameObjectWithTag("Filter");
@@ -28,6 +29,8 @@ public class Scene : MonoBehaviour
         post = GameObject.FindGameObjectWithTag("Post");
         post.GetComponent<PostProcessVolume>().weight = 1f;
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+        player.paused = false;
+        Time.timeScale = 1.0f;
     }       
 
     // Update is called once per frame
@@ -65,7 +68,11 @@ public class Scene : MonoBehaviour
 
     public void StartGame()
     {
-        Time.timeScale = 1;
+        LoadScene();
+        Start();
+    }
+    public void LoadScene()
+    {
         SceneManager.LoadScene("main");
     }
 }
