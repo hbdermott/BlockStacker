@@ -31,6 +31,8 @@ public class Spawner : MonoBehaviour
         StartCoroutine(Spawn());  
     }
 
+
+
     private void CreateObject()
     {
         Vector3 pos = Camera.main.ViewportToWorldPoint(new Vector3(Random.Range(0.1f, 0.9f), 1.1f, 10 - Camera.main.transform.position.z));

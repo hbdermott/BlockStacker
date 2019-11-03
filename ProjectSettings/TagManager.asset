@@ -12,6 +12,7 @@ TagManager:
   - Post
   - Explosion
   - Next
+  - Transition
   layers:
   - Default
   - TransparentFX

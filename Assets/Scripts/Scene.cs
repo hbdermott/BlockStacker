@@ -11,6 +11,7 @@ public class Scene : MonoBehaviour
     private GameObject button;
     private GameObject next;
     private GameObject post;
+    private GameObject transition;
     private Player player;
     private bool toggled = false;
     [SerializeField]
@@ -24,6 +25,7 @@ public class Scene : MonoBehaviour
         cubesDestroyed = 0;
         next = GameObject.FindGameObjectWithTag("Next");
         next.SetActive(true);
+        transition = GameObject.FindGameObjectWithTag("Transition");
         endScreen = GameObject.FindGameObjectWithTag("Finish");
         endScreen.SetActive(false);
         filter = GameObject.FindGameObjectWithTag("Filter");
@@ -49,6 +51,8 @@ public class Scene : MonoBehaviour
             post.GetComponent<PostProcessVolume>().weight = 0.7f;
             Time.timeScale = 0;
         }
+        if (Input.GetKeyDown(KeyCode.Escape))
+        { transition.GetComponent<ChangeScene>().Change(); }
     }
 
     public void TogglePause()
@@ -76,9 +80,9 @@ public class Scene : MonoBehaviour
         LoadScene();
         Start();
     }
-    public void LoadScene()
+    public void LoadScene(string scene = "main")
     {
-        SceneManager.LoadScene("main");
+        SceneManager.LoadScene(scene);
     }
 }
 
