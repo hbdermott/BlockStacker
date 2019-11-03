@@ -10,10 +10,12 @@ public class Bomb : MonoBehaviour
     private AudioSource bomb;
     private AudioSource explosionAudio;
     private ParticleSystem[] explosion = new ParticleSystem[2];
+    private GameObject explosionHandler;
     private bool played = false;
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
+        explosionHandler = GameObject.FindGameObjectWithTag("Explosion");
         bomb = GetComponent<AudioSource>();
         children = new GameObject[gameObject.transform.childCount];
         for (int i = 0; i < gameObject.transform.childCount; i++)
@@ -27,7 +29,7 @@ public class Bomb : MonoBehaviour
     {
         GameObject obj = col.gameObject;
         if (obj != player)
-            obj.GetComponent<Cube>().explode();
+            explosionHandler.GetComponent<Explosion>().explode(obj);
         if (!played)
         {
             bomb.Stop();

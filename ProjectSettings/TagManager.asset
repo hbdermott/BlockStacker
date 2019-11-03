@@ -10,6 +10,8 @@ TagManager:
   - Filter
   - Pause
   - Post
+  - Explosion
+  - Next
   layers:
   - Default
   - TransparentFX
