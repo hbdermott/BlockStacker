@@ -28,37 +28,7 @@ public class Spawner : MonoBehaviour
         StartCoroutine(Spawn());  
     }
 
-    public static Color GetColor()
-    {
-        Color color;
-        int val = Random.Range(0, 7);
-        switch (val)
-        {
-            case 0:
-                color = new Color(1, 0, 0);
-                break;
-            case 1:
-                color = new Color(0, 1, 0);
-                break;
-            case 2:
-                color = new Color(0, 0, 1);
-                break;
-            case 3:
-                color = new Color(0, 1, 1);
-                break;
-            case 4:
-                color = new Color(1, 1, 0);
-                break;
-            case 5:
-                color = new Color(1, 0, 1);
-                break;
-            default:
-                color = new Color(1, 1, 1);
-                break;
-        }
-        return color;
-    }
-
+   
 
     private void CreateObject()
     {
@@ -76,7 +46,7 @@ public class Spawner : MonoBehaviour
         }
         else
         {
-            nextGO.GetComponent<Renderer>().material.color = GetColor();
+            nextGO.GetComponent<Renderer>().material.color = UsefulFunc.GetColor();
         }
         nextGO.transform.position = pos;
         UI.SetNext(nextGO);

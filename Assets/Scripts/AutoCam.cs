@@ -36,7 +36,7 @@ public class AutoCam : MonoBehaviour
             transform.position += new Vector3(0, 0, 0.01f * zspeed);
         if(Camera.main.WorldToViewportPoint(player.transform.position - playerSize).y > Camera.main.ScreenToViewportPoint(Vector3.zero).y)
             transform.position += new Vector3(0, 0.001f * zspeed, 0);
-        else if(Camera.main.WorldToViewportPoint(player.transform.position).y < Camera.main.ScreenToViewportPoint(Vector3.zero).y)
+        else if(Camera.main.WorldToViewportPoint(player.transform.position - playerSize).y < Camera.main.ScreenToViewportPoint(Vector3.zero).y)
             transform.position -= new Vector3(0, 0.001f * zspeed, 0);
 
         if(player.transform.position.z - transform.position.z > curClipPlane)

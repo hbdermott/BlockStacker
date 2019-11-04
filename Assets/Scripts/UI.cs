@@ -1,11 +1,12 @@
 ﻿using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.Rendering.PostProcessing;
 public class UI : MonoBehaviour
 {
     private GameObject InGameUI;
     private GameObject GameOver;
+    private TMPro.TextMeshProUGUI Score;
+    private TMPro.TextMeshProUGUI HighScore;
     private GameObject Filter;
     private GameObject Transition;
     private GameObject NextObj;
@@ -13,6 +14,7 @@ public class UI : MonoBehaviour
     private Image PauseIMG;
     private PostProcessVolume Post;
     private Player Player;
+    private TMPro.TextMeshPro PlayerTM;
     [SerializeField]
     private Sprite Paused;
     [SerializeField]
@@ -27,11 +29,16 @@ public class UI : MonoBehaviour
         GameOver = gameObject.transform.GetChild(1).gameObject;
         Filter = gameObject.transform.GetChild(2).gameObject;
         Transition = gameObject.transform.GetChild(3).gameObject;
+        Score = GameOver.gameObject.transform.GetChild(3).GetChild(0).GetComponent<TMPro.TextMeshProUGUI>();
+        HighScore = GameOver.gameObject.transform.GetChild(4).GetChild(0).GetComponent<TMPro.TextMeshProUGUI>();
         Pause = InGameUI.transform.GetChild(0).gameObject;
         PauseIMG = Pause.GetComponent<Button>().GetComponent<Image>();
         NextObj = InGameUI.transform.GetChild(1).gameObject;
         Post = GameObject.FindGameObjectWithTag("Post").GetComponent<PostProcessVolume>();
         Player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+        PlayerTM = Player.transform.GetChild(0).GetComponent<TMPro.TextMeshPro>();
+        Debug.Log(Score);
+        Debug.Log(HighScore);
         UIMode();
     }       
     public void UIMode(bool end = false)
@@ -51,10 +58,15 @@ public class UI : MonoBehaviour
         }
     }
 
-    public void Restart()
+    public void SetScores(int cur, int high)
     {
-        SceneManager.LoadScene("main");
-        Start();
+        Score.text = cur.ToString();
+        HighScore.text = high.ToString();
+    }
+
+    public void SetCurScore(int score)
+    {
+        PlayerTM.text = score.ToString();
     }
 
     public void TogglePause()
