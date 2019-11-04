@@ -10,7 +10,7 @@ public class Cube : MonoBehaviour
     public bool heavy = false;
 
     private Renderer ren;
-    private Scene gameController;
+    private GameController gameController;
 
     private AudioSource audio;
     [SerializeField]
@@ -26,7 +26,7 @@ public class Cube : MonoBehaviour
     {
         ren = GetComponent<Renderer>();
         audio = GetComponent<AudioSource>();
-        gameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<Scene>();
+        gameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
     }
 
     void OnCollisionEnter(Collision col)
@@ -56,9 +56,8 @@ public class Cube : MonoBehaviour
     public void DestroyCube(float time = 0)
     {
         Destroy(gameObject, time);
-        gameController.cubesDestroyed++;
+        gameController.DroppedCube();
     }
-
 
     void Update()
     {

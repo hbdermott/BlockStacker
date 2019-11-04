@@ -11,6 +11,14 @@ public class ChangeScene : MonoBehaviour
     {
         animator = transform.GetComponent<Animator>();
     }
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if(sceneIndex == 0)
+                Change();
+        }
+    }
     public void Change()
     {
         StartCoroutine(LoadSceneAFterTransition());

@@ -13,6 +13,8 @@ TagManager:
   - Explosion
   - Next
   - Transition
+  - UI
+  - Bomb
   layers:
   - Default
   - TransparentFX

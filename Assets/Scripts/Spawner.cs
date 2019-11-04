@@ -3,74 +3,32 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class Spawner : MonoBehaviour
 {
     [SerializeField]
-    public GameObject cubePrefab;
+    private GameObject CubePrefab;
     [SerializeField]
-    private GameObject bombPrefab;
+    private GameObject BombPrefab;
     [SerializeField]
-    private Material stickyMat;
-    [SerializeField]
-    private Material heavyMat;
+    private Material StickyMat;
 
+
+    private GameObject nextGO;
+    private UI UI;
 
     [SerializeField]
     private float respawnTime = 4.0f;
 
-    private GameObject nextGO;
-    private GameObject nextCube;
-    private GameObject nextBomb;
     
     void Start()
     {
-        GameObject next = GameObject.FindGameObjectWithTag("Next");
-        nextCube = next.transform.GetChild(0).gameObject;
-        nextBomb = next.transform.GetChild(1).gameObject;
+        UI = GameObject.FindGameObjectWithTag("UI").GetComponent<UI>();
         CreateObject();
         StartCoroutine(Spawn());  
     }
 
-
-
-    private void CreateObject()
-    {
-        Vector3 pos = Camera.main.ViewportToWorldPoint(new Vector3(Random.Range(0.1f, 0.9f), 1.1f, 10 - Camera.main.transform.position.z));
-        int random = Random.Range(0, 20);
-        nextGO = Instantiate(cubePrefab) as GameObject;
-        if (random == 0)
-        {
-            nextGO = Instantiate(bombPrefab) as GameObject;
-            nextCube.SetActive(false);
-            nextBomb.SetActive(true);
-        }
-        else if (random <= 2)
-        {
-            nextGO.GetComponent<Cube>().sticky = true;
-            nextGO.GetComponent<MeshRenderer>().material = stickyMat;
-            nextCube.GetComponent<MeshRenderer>().material = nextGO.GetComponent<MeshRenderer>().material;
-            nextBomb.SetActive(false);
-            nextCube.SetActive(true);
-        }
-        else
-        {
-            nextGO.GetComponent<Renderer>().material.color = GetColor();
-            nextCube.GetComponent<Renderer>().material.color = nextGO.GetComponent<Renderer>().material.color;
-            nextCube.GetComponent<MeshRenderer>().material = nextGO.GetComponent<MeshRenderer>().material;
-            nextBomb.SetActive(false);
-            nextCube.SetActive(true);
-        }
-        nextGO.transform.position = pos;
-        nextGO.SetActive(false);
-    }
-
-    private void SpawnObject()
-    {
-        nextGO.SetActive(true);
-        CreateObject();
-    }
-
-    private Color GetColor()
+    public static Color GetColor()
     {
         Color color;
         int val = Random.Range(0, 7);
@@ -100,6 +58,38 @@ public class Spawner : MonoBehaviour
         }
         return color;
     }
+
+
+    private void CreateObject()
+    {
+        Vector3 pos = Camera.main.ViewportToWorldPoint(new Vector3(Random.Range(0.1f, 0.9f), 1.1f, 10 - Camera.main.transform.position.z));
+        int random = Random.Range(0, 20);
+        nextGO = Instantiate(CubePrefab) as GameObject;
+        if (random == 0)
+        {
+            nextGO = Instantiate(BombPrefab) as GameObject;
+        }
+        else if (random <= 2)
+        {
+            nextGO.GetComponent<Cube>().sticky = true;
+            nextGO.GetComponent<MeshRenderer>().material = StickyMat;
+        }
+        else
+        {
+            nextGO.GetComponent<Renderer>().material.color = GetColor();
+        }
+        nextGO.transform.position = pos;
+        UI.SetNext(nextGO);
+        nextGO.SetActive(false);
+    }
+
+    private void SpawnObject()
+    {
+        nextGO.SetActive(true);
+        CreateObject();
+    }
+
+
 
     IEnumerator Spawn()
     {

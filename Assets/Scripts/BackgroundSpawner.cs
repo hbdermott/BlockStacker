@@ -5,9 +5,9 @@ using UnityEngine;
 public class BackgroundSpawner : MonoBehaviour
 {
     [SerializeField]
-    public GameObject cubePrefab;
+    private GameObject CubePrefab;
     [SerializeField]
-    private Material stickyMat;
+    private Material StickyMat;
 
     void Start()
     {
@@ -19,9 +19,9 @@ public class BackgroundSpawner : MonoBehaviour
     {
         Vector3 pos = Camera.main.ViewportToWorldPoint(new Vector3(Random.Range(0.1f, 0.9f), 1.1f, 10 - Camera.main.transform.position.z));
         int random = Random.Range(0, 20);
-        GameObject nextGO = Instantiate(cubePrefab) as GameObject;
+        GameObject nextGO = Instantiate(CubePrefab) as GameObject;
         if (random <= 2)
-            nextGO.GetComponent<MeshRenderer>().material = stickyMat;
+            nextGO.GetComponent<MeshRenderer>().material = StickyMat;
         else
             nextGO.GetComponent<Renderer>().material.color = GetColor();
         nextGO.transform.position = pos;

@@ -5,12 +5,11 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     private Rigidbody rb;
-
     [SerializeField]
     private float speed = 0.0f;
     private Vector3 move;
-
     public bool paused;
+
     // Start is called before the first frame update
     void Start()
     {

@@ -2,28 +2,40 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Point : MonoBehaviour
+public class GameController : MonoBehaviour
 {
     [SerializeField]
     private GameObject cubePrefab;
-    private float cubeHeight = 0;
+    private GameObject UI;
     private GameObject[] cube;
-    
-    private int points = 0;
-    public int height = 0;
-
-    private float maxHeight = 0;
 
     private TMPro.TextMeshPro playerTM;
+
+    private int cubesDestroyed = 0;
+    private int numAllowed = 3;
+    private int points = 0;
+    public int height = 0;
+    private float maxHeight = 0;
+    private float cubeHeight = 0;
+
+
+
 
     void Start()
     {
         playerTM = GameObject.FindGameObjectWithTag("Player").GetComponentInChildren<TMPro.TextMeshPro>();
         cubeHeight = cubePrefab.GetComponent<Renderer>().bounds.size.y;
+        UI = GameObject.FindGameObjectWithTag("UI");
     }
+
+    public void DroppedCube() { cubesDestroyed++; }
 
     void Update()
     {
+        if (cubesDestroyed >= numAllowed)
+        {
+            UI.GetComponent<UI>().UIMode(true);
+        }
         cube = GameObject.FindGameObjectsWithTag("Cube");
         points = 0;
         height = 0;

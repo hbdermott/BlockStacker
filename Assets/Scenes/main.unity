@@ -129,9 +129,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 39014571}
+  - component: {fileID: 39014572}
   m_Layer: 5
   m_Name: UI
-  m_TagString: Untagged
+  m_TagString: UI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -152,8 +153,22 @@ Transform:
   - {fileID: 1042594349}
   - {fileID: 1501314912}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &39014572
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 39014570}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebcd65ac584a29c4a9112bdf993e6501, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Paused: {fileID: 21300000, guid: 617a522e0f610f94388d020945c4aa64, type: 3}
+  Played: {fileID: 21300000, guid: 015984e899b995a4d9173f04c9491322, type: 3}
 --- !u!1 &53063147
 GameObject:
   m_ObjectHideFlags: 0
@@ -265,8 +280,8 @@ GameObject:
   - component: {fileID: 578904233}
   - component: {fileID: 578904232}
   m_Layer: 0
-  m_Name: PointSystem
-  m_TagString: Point
+  m_Name: GameController
+  m_TagString: GameController
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -480,53 +495,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 776608647}
   m_CullTransparentMesh: 0
---- !u!1 &944025866
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 944025868}
-  - component: {fileID: 944025867}
-  m_Layer: 0
-  m_Name: GameController
-  m_TagString: GameController
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &944025867
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 944025866}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ebcd65ac584a29c4a9112bdf993e6501, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cubesDestroyed: 0
-  numAllowed: 3
-  paused: {fileID: 21300000, guid: 617a522e0f610f94388d020945c4aa64, type: 3}
-  played: {fileID: 21300000, guid: 015984e899b995a4d9173f04c9491322, type: 3}
---- !u!4 &944025868
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 944025866}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -868,7 +836,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 944025867}
+      - m_Target: {fileID: 39014572}
         m_MethodName: TogglePause
         m_Mode: 1
         m_Arguments:
@@ -1268,7 +1236,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1479046731
 GameObject:
@@ -1351,8 +1319,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 944025867}
-        m_MethodName: StartGame
+      - m_Target: {fileID: 39014572}
+        m_MethodName: Restart
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1710,7 +1678,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2132344169
 GameObject:
@@ -1741,12 +1709,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 350db78250735c84c98bf210ef1605a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cubePrefab: {fileID: 2069357537720351398, guid: 464813840ab7f2043a82a8398e45bf09,
+  CubePrefab: {fileID: 2069357537720351398, guid: 464813840ab7f2043a82a8398e45bf09,
     type: 3}
-  bombPrefab: {fileID: 7218609570278353446, guid: 103da56846333b646a1d4a2a41057b70,
+  BombPrefab: {fileID: 7218609570278353446, guid: 103da56846333b646a1d4a2a41057b70,
     type: 3}
-  stickyMat: {fileID: 2100000, guid: d85b75d91f5b4b047856c5b2d712410f, type: 2}
-  heavyMat: {fileID: 2100000, guid: edf6e51c34de29f489a4295327ed4e61, type: 2}
+  StickyMat: {fileID: 2100000, guid: d85b75d91f5b4b047856c5b2d712410f, type: 2}
   respawnTime: 4
 --- !u!4 &2132344171
 Transform:

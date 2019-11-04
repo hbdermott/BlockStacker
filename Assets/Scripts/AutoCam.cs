@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class AutoCam : MonoBehaviour
 {
-    private Point pointSystem;
+    private GameController pointSystem;
     private GameObject player;
     private Vector3 initialPos;
     private Vector3 playerSize;
@@ -20,9 +20,9 @@ public class AutoCam : MonoBehaviour
     void Start()
     { 
         player = GameObject.FindGameObjectWithTag("Player");
+        pointSystem = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
         playerSize = player.GetComponent<Collider>().bounds.size;
         initialPos = new Vector3(transform.position.x, transform.position.y, transform.position.z);
-        pointSystem = GameObject.FindGameObjectWithTag("Point").GetComponent<Point>();
         curClipPlane = Camera.main.farClipPlane;
     }
 
