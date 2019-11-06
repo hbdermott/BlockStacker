@@ -9,7 +9,7 @@ public class GameController : MonoBehaviour
     private GameObject cubePrefab;
     private UI UI;
     private GameObject[] cube;
-
+    private Spawner Spawner;
 
 
     private int cubesDestroyed = 0;
@@ -25,11 +25,26 @@ public class GameController : MonoBehaviour
     {
         cubeHeight = cubePrefab.GetComponent<Renderer>().bounds.size.y;
         UI = GameObject.FindGameObjectWithTag("UI").GetComponent<UI>();
+        Spawner = GameObject.FindGameObjectWithTag("Spawner").GetComponent<Spawner>();
         user = SaveSystem.LoadUser();
         if (user == null)
         {
             user = new UserData();
         }
+    }
+
+    void SlowTime()
+    {
+        if(user != null && user.numFreeze > 0)
+        {
+            Spawner.SlowNext();
+            user.Update(0, 0, -1);
+        }
+        else
+        {
+            //no freezes
+        }
+
     }
 
     public void Restart()
@@ -47,6 +62,7 @@ public class GameController : MonoBehaviour
         userDataSet = false;
     }
 
+
     void OnApplicationQuit()
     {
         SaveSystem.SaveUser(user);
@@ -60,7 +76,7 @@ public class GameController : MonoBehaviour
         {
             if (!userDataSet)
                 user.Update(points);
-            UI.SetScores(points, user.highScore);
+            UI.SetScores(points, user.highScore, user.points);
             UI.UIMode(true);
             userDataSet = true;
         }

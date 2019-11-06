@@ -6,7 +6,7 @@ public class Player : MonoBehaviour
 {
     private Rigidbody rb;
     [SerializeField]
-    private float speed = 0.0f;
+    public float speed = 0.0f;
     private Vector3 move;
     public bool paused;
 
@@ -14,7 +14,7 @@ public class Player : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        move = new Vector3(speed, 0, 0);
+        
     }
 
     // Update is called once per frame
@@ -22,6 +22,7 @@ public class Player : MonoBehaviour
     {
         if (!paused)
         {
+            move = new Vector3(speed, 0, 0);
             if (Input.touchCount > 0)
             {
                 var touch = Input.GetTouch(0);
@@ -37,5 +38,6 @@ public class Player : MonoBehaviour
             else if (pos.x == 1)
                 rb.velocity = -move;
         }
+
     }
 }

@@ -7,10 +7,12 @@ public class UI : MonoBehaviour
     private GameObject GameOver;
     private TMPro.TextMeshProUGUI Score;
     private TMPro.TextMeshProUGUI HighScore;
+    private TMPro.TextMeshProUGUI Currency;
     private GameObject Filter;
     private GameObject Transition;
     private GameObject NextObj;
     private GameObject Pause;
+    private GameObject TimeSlow;
     private Image PauseIMG;
     private PostProcessVolume Post;
     private Player Player;
@@ -29,28 +31,32 @@ public class UI : MonoBehaviour
         GameOver = gameObject.transform.GetChild(1).gameObject;
         Filter = gameObject.transform.GetChild(2).gameObject;
         Transition = gameObject.transform.GetChild(3).gameObject;
-        Score = GameOver.gameObject.transform.GetChild(3).GetChild(0).GetComponent<TMPro.TextMeshProUGUI>();
-        HighScore = GameOver.gameObject.transform.GetChild(4).GetChild(0).GetComponent<TMPro.TextMeshProUGUI>();
+        Score = GameOver.gameObject.transform.GetChild(1).GetChild(0).GetComponent<TMPro.TextMeshProUGUI>();
+        HighScore = GameOver.gameObject.transform.GetChild(2).GetChild(0).GetComponent<TMPro.TextMeshProUGUI>();
+        Currency = GameOver.gameObject.transform.GetChild(6).GetChild(1).GetComponent<TMPro.TextMeshProUGUI>();
         Pause = InGameUI.transform.GetChild(0).gameObject;
         PauseIMG = Pause.GetComponent<Button>().GetComponent<Image>();
         NextObj = InGameUI.transform.GetChild(1).gameObject;
+        TimeSlow = InGameUI.transform.GetChild(2).gameObject;
         Post = GameObject.FindGameObjectWithTag("Post").GetComponent<PostProcessVolume>();
         Player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         PlayerTM = Player.transform.GetChild(0).GetComponent<TMPro.TextMeshPro>();
         Debug.Log(Score);
         Debug.Log(HighScore);
         UIMode();
-    }       
+        Debug.Log(PlayerTM);
+    }
     public void UIMode(bool end = false)
     {
         GameOver.SetActive(end);
         Filter.SetActive(end);
         Pause.SetActive(!end);
         NextObj.SetActive(!end);
+        TimeSlow.SetActive(!end);
         Player.paused = end;
-        if (end) { 
+        if (end) {
             Time.timeScale = 0;
-            Post.weight = 0.7f;
+            Post.weight = 0.5f;
         }
         else {
             Time.timeScale = 1;
@@ -58,10 +64,11 @@ public class UI : MonoBehaviour
         }
     }
 
-    public void SetScores(int cur, int high)
+    public void SetScores(int cur, int high, int tot)
     {
         Score.text = cur.ToString();
         HighScore.text = high.ToString();
+        Currency.text = tot.ToString();
     }
 
     public void SetCurScore(int score)
@@ -84,6 +91,8 @@ public class UI : MonoBehaviour
         toggled = !toggled;
         Player.paused = !Player.paused;
     }
+
+   
 
     public void SetNext(GameObject obj)
     {

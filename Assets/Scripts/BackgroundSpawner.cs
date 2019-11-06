@@ -24,6 +24,7 @@ public class BackgroundSpawner : MonoBehaviour
         else
             nextGO.GetComponent<Renderer>().material.color = UsefulFunc.GetColor();
         nextGO.transform.position = pos;
+        nextGO.GetComponent<Cube>().background = true;
     }
 
 

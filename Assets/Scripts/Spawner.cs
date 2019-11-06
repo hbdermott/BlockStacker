@@ -59,6 +59,10 @@ public class Spawner : MonoBehaviour
         CreateObject();
     }
 
+    public void SlowNext()
+    {
+        nextGO.GetComponent<Rigidbody>().AddForce(new Vector3(0, 4.9f, 0));
+    }
 
 
     IEnumerator Spawn()

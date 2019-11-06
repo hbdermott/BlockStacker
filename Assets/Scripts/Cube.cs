@@ -18,6 +18,7 @@ public class Cube : MonoBehaviour
     [SerializeField]
     private AudioClip collideAudio;
     private List<int> cubeCol = new List<int>();
+    public bool background = false;
 
 
    
@@ -26,7 +27,8 @@ public class Cube : MonoBehaviour
     {
         ren = GetComponent<Renderer>();
         audio = GetComponent<AudioSource>();
-        gameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
+        if(!background)
+            gameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
     }
 
     void OnCollisionEnter(Collision col)
@@ -59,10 +61,14 @@ public class Cube : MonoBehaviour
         gameController.DroppedCube();
     }
 
+
     void Update()
     {
         if (Camera.main.ViewportToWorldPoint(transform.position).y < -5)
-            DestroyCube();
+            if (background)
+                Destroy(gameObject);
+            else
+                DestroyCube();
     }
 
 
