@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using UnityEngine;
-
+using UnityEngine.Advertisements;
 public class GameController : MonoBehaviour
 {
     [SerializeField]
@@ -10,16 +10,16 @@ public class GameController : MonoBehaviour
     private UI UI;
     private GameObject[] cube;
     private Spawner Spawner;
-
+    private string gameId = "3353258";
 
     private int cubesDestroyed = 0;
     private int numAllowed = 3;
-    private int points = 0;
+    public int points = 0;
     public int height = 0;
     private float maxHeight = 0;
     private float cubeHeight = 0;
     UserData user;
-    private bool userDataSet = false;
+    private bool end = false;
 
     void Start()
     {
@@ -31,20 +31,7 @@ public class GameController : MonoBehaviour
         {
             user = new UserData();
         }
-    }
-
-    void SlowTime()
-    {
-        if(user != null && user.numFreeze > 0)
-        {
-            Spawner.SlowNext();
-            user.Update(0, 0, -1);
-        }
-        else
-        {
-            //no freezes
-        }
-
+       Advertisement.Initialize(gameId, false);
     }
 
     public void Restart()
@@ -52,14 +39,16 @@ public class GameController : MonoBehaviour
         SaveSystem.SaveUser(user);
         SceneManager.LoadScene("main");
         UI.UIMode(false);
-        userDataSet = false;
+        UI.ResetLives(true);
+        end = false;
     }
 
     public void Continue()
     {
         UI.UIMode(false);
         cubesDestroyed = 0;
-        userDataSet = false;
+        UI.ResetLives(true);
+        end = false;
     }
 
 
@@ -68,17 +57,25 @@ public class GameController : MonoBehaviour
         SaveSystem.SaveUser(user);
     }
 
-    public void DroppedCube() { cubesDestroyed++; }
+    public void DroppedCube() {
+        cubesDestroyed++;
+        if(cubesDestroyed <= 3)
+            UI.LoseLife(cubesDestroyed);
+    }
 
     void Update()
     {
-        if (cubesDestroyed >= numAllowed)
+        if (cubesDestroyed >= numAllowed && !end)
         {
-            if (!userDataSet)
-                user.Update(points);
-            UI.SetScores(points, user.highScore, user.points);
-            UI.UIMode(true);
-            userDataSet = true;
+                user.Update(points, 1);
+                UI.SetScores(points, user.highScore);
+                UI.UIMode(true);
+                end = true;
+                if(user.numGames >= 5 && user.numGames % 5 == 0)
+                {
+                    if (Advertisement.IsReady("video"))
+                       Advertisement.Show("video");
+                }
         }
         cube = GameObject.FindGameObjectsWithTag("Cube");
         points = 0;

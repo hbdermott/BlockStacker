@@ -9,12 +9,13 @@ public class Player : MonoBehaviour
     public float speed = 0.0f;
     private Vector3 move;
     public bool paused;
+    private GameController controller;
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        
+        controller = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
     }
 
     // Update is called once per frame
@@ -22,7 +23,7 @@ public class Player : MonoBehaviour
     {
         if (!paused)
         {
-            move = new Vector3(speed, 0, 0);
+            move = new Vector3(speed + controller.points/30f, 0, 0);
             if (Input.touchCount > 0)
             {
                 var touch = Input.GetTouch(0);

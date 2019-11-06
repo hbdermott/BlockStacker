@@ -7,12 +7,13 @@ public class UI : MonoBehaviour
     private GameObject GameOver;
     private TMPro.TextMeshProUGUI Score;
     private TMPro.TextMeshProUGUI HighScore;
-    private TMPro.TextMeshProUGUI Currency;
     private GameObject Filter;
     private GameObject Transition;
     private GameObject NextObj;
     private GameObject Pause;
-    private GameObject TimeSlow;
+    private GameObject Life;
+    private GameObject[] lives;
+    private RewardedAdsButton Con;
     private Image PauseIMG;
     private PostProcessVolume Post;
     private Player Player;
@@ -21,7 +22,6 @@ public class UI : MonoBehaviour
     private Sprite Paused;
     [SerializeField]
     private Sprite Played;
-
     private bool toggled = false;
 
 
@@ -33,18 +33,20 @@ public class UI : MonoBehaviour
         Transition = gameObject.transform.GetChild(3).gameObject;
         Score = GameOver.gameObject.transform.GetChild(1).GetChild(0).GetComponent<TMPro.TextMeshProUGUI>();
         HighScore = GameOver.gameObject.transform.GetChild(2).GetChild(0).GetComponent<TMPro.TextMeshProUGUI>();
-        Currency = GameOver.gameObject.transform.GetChild(6).GetChild(1).GetComponent<TMPro.TextMeshProUGUI>();
         Pause = InGameUI.transform.GetChild(0).gameObject;
         PauseIMG = Pause.GetComponent<Button>().GetComponent<Image>();
         NextObj = InGameUI.transform.GetChild(1).gameObject;
-        TimeSlow = InGameUI.transform.GetChild(2).gameObject;
+        Life = InGameUI.transform.GetChild(2).gameObject;
+        lives = new GameObject[3];
+        for(int i = 0; i < 3; i++)
+        {
+            lives[i] = Life.transform.GetChild(i).gameObject;
+        }
+        Con = GameOver.gameObject.transform.GetChild(3).GetComponent<RewardedAdsButton>();
         Post = GameObject.FindGameObjectWithTag("Post").GetComponent<PostProcessVolume>();
         Player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         PlayerTM = Player.transform.GetChild(0).GetComponent<TMPro.TextMeshPro>();
-        Debug.Log(Score);
-        Debug.Log(HighScore);
         UIMode();
-        Debug.Log(PlayerTM);
     }
     public void UIMode(bool end = false)
     {
@@ -52,11 +54,12 @@ public class UI : MonoBehaviour
         Filter.SetActive(end);
         Pause.SetActive(!end);
         NextObj.SetActive(!end);
-        TimeSlow.SetActive(!end);
         Player.paused = end;
+        Life.SetActive(!end);
         if (end) {
             Time.timeScale = 0;
             Post.weight = 0.5f;
+            Con.Init();
         }
         else {
             Time.timeScale = 1;
@@ -64,11 +67,23 @@ public class UI : MonoBehaviour
         }
     }
 
-    public void SetScores(int cur, int high, int tot)
+    public void LoseLife(int counter)
+    {
+        lives[counter - 1].SetActive(false);
+    }
+
+    public void ResetLives(bool reset)
+    {
+        for(int i = 0; i < 3; i++)
+        {
+            lives[i].SetActive(true);
+        }
+    }
+
+    public void SetScores(int cur, int high)
     {
         Score.text = cur.ToString();
         HighScore.text = high.ToString();
-        Currency.text = tot.ToString();
     }
 
     public void SetCurScore(int score)
