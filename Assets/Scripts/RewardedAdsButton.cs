@@ -8,7 +8,7 @@ public class RewardedAdsButton : MonoBehaviour, IUnityAdsListener
 
     private string gameId = "3353258";
     Button myButton;
-    public string myPlacementId = "video";
+    public string myPlacementId = "rewardedVideo";
     GameController controller;
 
     public void Init()
@@ -30,20 +30,18 @@ public class RewardedAdsButton : MonoBehaviour, IUnityAdsListener
     // Implement a function for showing a rewarded video ad:
     void ShowRewardedVideo()
     {
-        if(Advertisement.IsReady("video"))
-            Advertisement.Show("video");
+         Advertisement.Show(myPlacementId);
     }
-
+    
     // Implement IUnityAdsListener interface methods:
     public void OnUnityAdsReady(string placementId)
     {
-        // If the ready Placement is rewarded, activate the button: 
         if (placementId == myPlacementId)
         {
             myButton.interactable = true;
         }
     }
-
+    
     public void OnUnityAdsDidFinish(string placementId, ShowResult showResult)
     {
         // Define conditional logic for each ad completion status:
@@ -53,7 +51,7 @@ public class RewardedAdsButton : MonoBehaviour, IUnityAdsListener
         }
         else if (showResult == ShowResult.Skipped)
         {
-            controller.Continue();
+           // controller.Continue();
         }
         else if (showResult == ShowResult.Failed)
         {
@@ -63,7 +61,7 @@ public class RewardedAdsButton : MonoBehaviour, IUnityAdsListener
 
     public void OnUnityAdsDidError(string message)
     {
-        // Log the error.
+        
     }
 
     public void OnUnityAdsDidStart(string placementId)

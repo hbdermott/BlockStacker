@@ -15,12 +15,13 @@ public class UserData
     public UserData(UserData user)
     {
         highScore = user.highScore;
+        numGames = user.numGames;
     }
-    public void Update(int pointVal = 0, int games = 0)
+    public void Update(int pointVal = 0, int games = 1)
     {
+        numGames += games;
         if (pointVal > highScore)
             highScore = pointVal;
-        numGames += games;
     }
 
 }

@@ -42,7 +42,7 @@ public class Cube : MonoBehaviour
             return;
         }
         cubeCol.Add(id);
-        if ((sticky || col.gameObject.GetComponent<Renderer>().material.color == ren.material.color || (col.gameObject.tag != "Player" && col.gameObject.GetComponent<Cube>().sticky)))
+        if (sticky || col.gameObject.GetComponent<Renderer>().material.color == ren.material.color || (col.gameObject.tag != "Player" && col.gameObject.GetComponent<Cube>().sticky) || col.gameObject.tag == "Player")
         {
             FixedJoint joint = gameObject.AddComponent<FixedJoint>();
             joint.connectedBody = col.rigidbody;

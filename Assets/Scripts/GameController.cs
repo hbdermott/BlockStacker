@@ -36,11 +36,26 @@ public class GameController : MonoBehaviour
 
     public void Restart()
     {
+        user.Update();
+        Debug.Log(user.numGames);
+        if (user.numGames >= 5 && Advertisement.IsReady("video"))
+        {
+            Advertisement.Show("video");
+            user.Update(0, -5);
+        }
         SaveSystem.SaveUser(user);
-        SceneManager.LoadScene("main");
+        StartCoroutine(Reset());
+    }
+
+    IEnumerator Reset()
+    {
         UI.UIMode(false);
         UI.ResetLives(true);
         end = false;
+        Time.timeScale = 0;
+        yield return new WaitUntil(() => !Advertisement.isShowing);
+        SceneManager.LoadScene("main");
+        Time.timeScale = 1;
     }
 
     public void Continue()
@@ -50,7 +65,6 @@ public class GameController : MonoBehaviour
         UI.ResetLives(true);
         end = false;
     }
-
 
     void OnApplicationQuit()
     {
@@ -63,19 +77,16 @@ public class GameController : MonoBehaviour
             UI.LoseLife(cubesDestroyed);
     }
 
+
+
     void Update()
     {
         if (cubesDestroyed >= numAllowed && !end)
-        {
-                user.Update(points, 1);
-                UI.SetScores(points, user.highScore);
-                UI.UIMode(true);
-                end = true;
-                if(user.numGames >= 5 && user.numGames % 5 == 0)
-                {
-                    if (Advertisement.IsReady("video"))
-                       Advertisement.Show("video");
-                }
+        { 
+            user.Update(points, 0);
+            UI.SetScores(points, user.highScore);
+            UI.UIMode(true);
+            end = true;
         }
         cube = GameObject.FindGameObjectsWithTag("Cube");
         points = 0;

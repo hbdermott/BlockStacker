@@ -52,14 +52,12 @@ public class UI : MonoBehaviour
     {
         GameOver.SetActive(end);
         Filter.SetActive(end);
-        Pause.SetActive(!end);
-        NextObj.SetActive(!end);
+        InGameUI.SetActive(!end);
         Player.paused = end;
-        Life.SetActive(!end);
         if (end) {
+            Con.Init();
             Time.timeScale = 0;
             Post.weight = 0.5f;
-            Con.Init();
         }
         else {
             Time.timeScale = 1;

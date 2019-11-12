@@ -10,6 +10,7 @@ public class Player : MonoBehaviour
     private Vector3 move;
     public bool paused;
     private GameController controller;
+    private List<int> playerCol = new List<int>();
 
     // Start is called before the first frame update
     void Start()
@@ -40,5 +41,14 @@ public class Player : MonoBehaviour
                 rb.velocity = -move;
         }
 
+    }
+
+    void OnCollisionEnter(Collision col)
+    {
+        int id = col.gameObject.GetInstanceID();
+        if (playerCol.Contains(id))
+            return;
+        playerCol.Add(id);
+        gameObject.AddComponent<FixedJoint>().connectedBody = col.rigidbody;
     }
 }

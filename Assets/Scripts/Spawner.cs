@@ -56,6 +56,7 @@ public class Spawner : MonoBehaviour
     private void SpawnObject()
     {
         nextGO.SetActive(true);
+        nextGO.GetComponent<Rigidbody>().AddForce(new Vector3(0, 4.9f, 0));
         CreateObject();
     }
 

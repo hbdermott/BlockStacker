@@ -33,7 +33,7 @@ public class Explosion : MonoBehaviour
             for (int j = 0; j < cubesInRow; j++)
                 for (int k = 0; k < cubesInRow; k++, counter++)
                     createPiece(i, j, k, counter, cube);
-        cube.GetComponent<Cube>().DestroyCube();
+        Destroy(cube);
         Collider[] colliders = Physics.OverlapSphere(cube.transform.position, explosionRadius);
         foreach (Collider hit in colliders)
         {
